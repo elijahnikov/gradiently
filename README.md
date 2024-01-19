@@ -36,8 +36,8 @@ import { ColorWheel } from 'gradiently'
 const [gradient, setGradient] =  useState<string>("");
 
 <ColorWheel
-	radius={120}
-	onChange={setGradient}
+  radius={120}
+  onChange={setGradient}
 />
 ```
 
