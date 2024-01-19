@@ -33,16 +33,5 @@
     "react-hooks": "^1.0.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "yarn  eslint",
-      "yarn  format"
-    ]
   }
 }
