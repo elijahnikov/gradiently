@@ -1,8 +1,8 @@
 {
   "name": "gradiently",
-  "description": "A minimal, lightweight colour picker to generate beautiful Tailwind gradients",
+  "description": "A minimal, lightweight colour picker to generate beautiful colours and gradients.",
   "private": false,
-  "version": "1.0.6",
+  "version": "1.0.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
