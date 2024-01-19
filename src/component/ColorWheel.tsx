@@ -23,7 +23,9 @@ export type ColorWheelProps = {
   radius?: number
   pickers?: number
   onChange?: React.Dispatch<React.SetStateAction<string>>
-} & (LinearGradientProps | RadialConicProps)
+  gradientType?: 'linear' | 'radial'
+  direction?: DirectionsIndex
+}
 
 export const ColorWheel = ({
   radius = 100,

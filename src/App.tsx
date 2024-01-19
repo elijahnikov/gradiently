@@ -8,10 +8,10 @@ function App() {
     <div>
       <div style={{ display: 'flex' }}>
         <ColorWheel
-          gradientType="linear"
+          gradientType="radial"
           radius={100}
           pickers={3}
-          direction="left"
+          direction="top left"
           onChange={setGradient}
         />
       </div>
