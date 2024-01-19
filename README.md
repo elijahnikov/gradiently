@@ -8,9 +8,7 @@
 
 A minimal, lightweight colour picker to generate beautiful colours and gradients.
 
-
-
-
+[Demo](https://gradiently-demo.vercel.app/)
 
 ### Installation
 
