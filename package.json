@@ -2,7 +2,7 @@
   "name": "gradiently",
   "description": "A minimal, lightweight colour picker to generate beautiful Tailwind gradients",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,17 +14,20 @@
     "prepare": "husky install"
   },
   "files": [
-    "dist"
+    "/dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
-      "import": "./dist/gradiently.es.js",
-      "require": "./dist/gradiently.umd.js"
-    },
-    "./dist/style.css": "./dist/style.css"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
   },
-  "main": "./dist/gradiently.umd.js",
-  "module": "./dist/gradiently.es.js",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "peerDependencies": {
     "react": "^18.2.0",
