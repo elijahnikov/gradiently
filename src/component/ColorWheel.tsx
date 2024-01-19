@@ -9,20 +9,10 @@ import {
 } from './utils'
 import Picker from './Picker'
 
-type LinearGradientProps = {
-  gradientType: 'linear'
-  direction?: DirectionsIndex
-}
-
-type RadialConicProps = {
-  gradientType: 'radial'
-  direction?: never
-}
-
 export type ColorWheelProps = {
   radius?: number
   pickers?: number
-  onChange?: React.Dispatch<React.SetStateAction<string>>
+  onChange: (value: string) => void
   gradientType?: 'linear' | 'radial'
   direction?: DirectionsIndex
 }
@@ -81,14 +71,13 @@ export const ColorWheel = ({
   }, [pointerArr, radius])
 
   useEffect(() => {
-    onChange &&
-      onChange(
-        constructGradientString({
-          direction,
-          gradientType,
-          hexValues: hexArray,
-        }),
-      )
+    onChange(
+      constructGradientString({
+        direction,
+        gradientType,
+        hexValues: hexArray,
+      }),
+    )
   }, [direction, gradientType, hexArray, onChange])
 
   return (
