@@ -3,6 +3,41 @@ export interface Point {
   y: number
 }
 
+const directions = [
+  'top',
+  'top right',
+  'right',
+  'bottom right',
+  'bottom',
+  'bottom left',
+  'left',
+  'top left',
+] as const
+export type DirectionsIndex = (typeof directions)[number]
+
+export const constructGradientString = ({
+  direction,
+  gradientType,
+  hexValues,
+}: {
+  direction: string
+  gradientType: string
+  hexValues: string[]
+}): string => {
+  let output = ""
+  if (hexValues.length === 1) {
+    output = hexValues.join()
+    return output;
+  }
+  if (gradientType.includes('linear')) {
+    output = `${gradientType}-gradient(to ${direction}, ${hexValues.join(', ')})`
+  }
+  if (gradientType.includes("radial")){
+    output = `${gradientType}-gradient(circle, ${hexValues.join(', ')})`
+  }
+  return output
+}
+
 export const xy2polar = (x: number, y: number): [number, number] => {
   const r = Math.sqrt(x * x + y * y)
   const phi = Math.atan2(y, x)
@@ -78,11 +113,11 @@ export const xy2Hex = (x: number, y: number, radius: number) => {
 }
 
 export const generateCoordinate = (pointNames: string[], radius: number) => {
-  const range = 0.7 * radius;
+  const range = 0.7 * radius
   return pointNames.reduce((obj: Record<string, Point>, pointName) => {
     obj[pointName] = {
-      x: Math.abs(radius + (Math.random() * range * 2) - range),
-      y: Math.abs(radius + (Math.random() * range * 2) - range)
+      x: Math.abs(radius + Math.random() * range * 2 - range),
+      y: Math.abs(radius + Math.random() * range * 2 - range),
     }
     return obj
   }, {})
