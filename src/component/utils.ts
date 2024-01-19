@@ -3,14 +3,6 @@ export interface Point {
   y: number
 }
 
-export const harmonies = {
-  triad: [120, 240],
-  tetradic: [60, 180, 240],
-  complementary: [180],
-  analogous: [-30, 30],
-  square: [90, 180, 270],
-} as const
-
 export const xy2polar = (x: number, y: number): [number, number] => {
   const r = Math.sqrt(x * x + y * y)
   const phi = Math.atan2(y, x)
@@ -25,10 +17,6 @@ export const polar2xy = (r: number, phi: number): [number, number] => {
 
 export const rad2deg = (rad: number) => {
   return ((rad + Math.PI) / (2 * Math.PI)) * 360
-}
-
-export const deg2rad = (hue: number) => {
-  return hue * (Math.PI / 180)
 }
 
 export const hsv2rgb = (
@@ -140,13 +128,4 @@ export const drawCircle = (ctx: CanvasRenderingContext2D, radius: number) => {
   }
 
   ctx.putImageData(image, 0, 0)
-}
-
-export const hsv2xy = (hue: number, saturation: number, value: number, radius: number) => {
-  const adjustedHue = hue - 180
-  const [r, phi] = polar2xy(radius * saturation, deg2rad(adjustedHue))
-  return {
-    x: r + radius,
-    y: phi + radius,
-  }
 }

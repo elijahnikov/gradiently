@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Point, drawCircle, generateCoordinate } from './utils'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Point, drawCircle, generateCoordinate, xy2Hex } from './utils'
 import Picker from './Picker'
 
 export type ColorWheelProps = {
   radius: number
-  via: boolean
-  onChange?: React.Dispatch<React.SetStateAction<Record<string, Point>>>
+  via?: boolean
+  onChange?: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const ColorWheel = ({ radius, onChange, via }: ColorWheelProps) => {
+export const ColorWheel = ({ via = false, radius = 100, onChange }: ColorWheelProps) => {
   const ref = useRef<HTMLCanvasElement>(null)
   const pointerArr = via ? ['to', 'from', 'via'] : ['to', 'from']
   const pointerObject = generateCoordinate(pointerArr, radius)
-  const [positions, setPositions] = useState<Record<string, Point>>(pointerObject)
+  const [positions, setPositions] = useState<Record<'to' | 'from' | 'via', Point>>(pointerObject)
 
   const drawCircleCallback = useCallback(
     (ctx: CanvasRenderingContext2D) => {
@@ -33,21 +33,20 @@ export const ColorWheel = ({ radius, onChange, via }: ColorWheelProps) => {
     drawCircleCallback(ctx)
   }, [drawCircleCallback, radius])
 
-  useEffect(() => {
-    onChange && onChange(positions)
-  }, [onChange, positions])
+  const fromHex = useMemo(
+    () => 'from-[' + xy2Hex(positions.from.x, positions.from.y, radius) + '] ',
+    [positions.from.x, positions.from.y, radius],
+  )
+  const toHex = useMemo(
+    () => 'to-[' + xy2Hex(positions.to.x, positions.to.y, radius) + '] ',
+    [positions.to.x, positions.to.y, radius],
+  )
+  const viaHex = useMemo(
+    () => (via ? 'via-[' + xy2Hex(positions.via.x, positions.via.y, radius) + ']' : ''),
+    [positions.via?.x, positions.via?.y, radius, via],
+  )
 
-  // useEffect(() => {
-  //   Object.entries(positions).forEach(([key, value]) => {
-  //     console.log({
-  //       key,
-  //       values: {
-  //         x: value.x,
-  //         y: value.y,
-  //       },
-  //     })
-  //   })
-  // }, [positions])
+  onChange && onChange(fromHex + toHex + viaHex)
 
   return (
     <div
@@ -70,7 +69,7 @@ export const ColorWheel = ({ radius, onChange, via }: ColorWheelProps) => {
           setPositions={setPositions}
           type={type}
           key={index}
-          position={positions[type]}
+          position={positions[type as keyof typeof positions]}
           radius={radius}
         />
       ))}

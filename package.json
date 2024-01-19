@@ -1,7 +1,8 @@
 {
   "name": "gradiently",
-  "private": true,
-  "version": "0.0.0",
+  "description": "A minimal, lightweight colour picker to generate beautiful Tailwind gradients",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,12 +13,26 @@
     "format": "prettier --write src//**/*.{ts,tsx,css} --config ./.prettierrc",
     "prepare": "husky install"
   },
-  "dependencies": {
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/gradiently.es.js",
+      "require": "./dist/gradiently.umd.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "main": "./dist/gradiently.umd.js",
+  "module": "./dist/gradiently.es.js",
+  "types": "./dist/index.d.ts",
+  "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6"
   },
   "devDependencies": {
+    "@types/node": "^20.11.5",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
@@ -32,6 +47,27 @@
     "prettier": "^3.2.4",
     "react-hooks": "^1.0.1",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
-  }
+    "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.7.1",
+    "vite-plugin-linter": "^2.0.7",
+    "vite-tsconfig-paths": "^4.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elijahnikov/gradiently"
+  },
+  "keywords": [
+    "gradient",
+    "grsdiently",
+    "tailwind",
+    "react",
+    "colorpicker",
+    "color picker"
+  ],
+  "author": "Elijah Nikov",
+  "bugs": {
+    "url": "https://github.com/elijahnikov/gradiently/issues"
+  },
+  "homepage": "https://github.com/elijahnikov/gradiently#readme",
+  "license": "MIT"
 }

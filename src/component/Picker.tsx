@@ -1,6 +1,6 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import Draggable, { DraggableEventHandler } from 'react-draggable'
-import { xy2polar, polar2xy, xy2Hex } from './utils'
+import { xy2polar, polar2xy, xy2Hex, Point } from './utils'
 
 export default function Picker({
   radius,
@@ -11,17 +11,7 @@ export default function Picker({
   radius: number
   position: { x: number; y: number }
   type: string
-  setPositions: React.Dispatch<
-    React.SetStateAction<
-      Record<
-        string,
-        {
-          x: number
-          y: number
-        }
-      >
-    >
-  >
+  setPositions: React.Dispatch<React.SetStateAction<Record<string, Point>>>
 }) {
   const handleDrag: DraggableEventHandler = useCallback(
     (e, data) => {
@@ -40,8 +30,10 @@ export default function Picker({
     [radius, setPositions, type],
   )
 
-  const currentColor = xy2Hex(position.x, position.y, radius)
-  // console.log({ type: type, currentColor })
+  const currentColor = useMemo(
+    () => xy2Hex(position.x, position.y, radius),
+    [position.x, position.y, radius],
+  )
 
   return (
     <Draggable position={position} onDrag={handleDrag}>
